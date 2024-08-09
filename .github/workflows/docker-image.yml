@@ -1,0 +1,11 @@
+name: docker image
+run-name: ${{ github.actor }} is Automating docker container images to be build on push event trigger
+on: [push]
+jobs:
+    build:
+        runs-on: alpine-lastest
+
+        steps:
+        - uses: actions/checkout@v4
+        - name: Build the docker image
+          run: docker build . --file Dockerfile --tag DockAlpine:$(date +%s)
