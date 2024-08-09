@@ -14,8 +14,6 @@ jobs:
             #  run: docker build . --tag ghcr.io/cdchrisDev/github_actions:lastest
             #- name: push image
             #  run: docker push ghcr.io/cdchrisDev/github_actions:lastest
-            - name: Log in and push
-              run:
             - env:
                 INPUTS_IMAGE: repo
                 INPUTS_PASSWORD: ${{ github.token }}
