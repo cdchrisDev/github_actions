@@ -1,11 +1,25 @@
-name: docker image
+name: docker-image
 run-name: ${{ github.actor }} is Automating docker container images to be build on push event trigger
 on: [push]
 jobs:
     build:
-        runs-on: alpine-lastest
-
+        runs-on: ubuntu-lastest
         steps:
-        - uses: actions/checkout@v4
-        - name: Build the docker image
-          run: docker build . --file Dockerfile --tag DockAlpine:$(date +%s)
+            - name: Checkout repo
+              uses: actions/checkout@v4
+            #- name: Login-registry
+            #  run: echo "${{ secrets.CR_PAT }}" | docker login ghcr.io -u cdchrisDev --password-stdin
+            #- run: docker build . --file Dockerfile --tag DockAlpine:$(date +%s)
+            # - name: Build-image
+            #  run: docker build . --tag ghcr.io/cdchrisDev/github_actions:lastest
+            #- name: push image
+            #  run: docker push ghcr.io/cdchrisDev/github_actions:lastest
+            - name: Log in and push
+              run:
+            - env:
+                INPUTS_IMAGE: repo
+                INPUTS_PASSWORD: ${{ github.token }}
+                INPUTS_REGISTRY: ghcr.io
+                INPUTS_TAG: master
+                INPUTS_USERNAME: ${{ github.repository_owner }}
+              uses: rekgrpth/docker-login-push-shell-action@v1
